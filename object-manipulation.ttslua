@@ -4,18 +4,18 @@
 
 function enableCollider(obj)
   if obj.getComponent("Rigidbody") then
-      obj.getComponent("Rigidbody").set("detectCollisions", true)
+    obj.getComponent("Rigidbody").set("detectCollisions", true)
   end
   if obj.getComponent("BoxCollider") then
-      obj.getComponent("BoxCollider").set("enabled", true)
+    obj.getComponent("BoxCollider").set("enabled", true)
   end
 end
 
 function disableCollider(obj)
   if obj.getComponent("Rigidbody") then
-      obj.getComponent("Rigidbody").set("detectCollisions", false)
+    obj.getComponent("Rigidbody").set("detectCollisions", false)
   end
   if obj.getComponent("BoxCollider") then
-      obj.getComponent("BoxCollider").set("enabled", false)
+    obj.getComponent("BoxCollider").set("enabled", false)
   end
 end
