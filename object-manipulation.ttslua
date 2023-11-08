@@ -19,3 +19,13 @@ function disableCollider(obj)
     obj.getComponent("BoxCollider").set("enabled", false)
   end
 end
+
+---------------------------------------------------------
+-- edit the buttons on the pdf object
+---------------------------------------------------------
+
+function editBookButtonScale(obj)
+  obj.getChildren()[1].getChildren()[1].getChildren()[1].getComponents()[1].set('localScale', { 0.8, 0.8, 1}) -- next page
+  obj.getChildren()[1].getChildren()[1].getChildren()[2].getComponents()[1].set('localScale', { 0.8, 0.8, 1}) -- previous page
+  obj.getChildren()[1].getChildren()[1].getChildren()[3].getComponents()[1].set('localScale', { 0.8, 0.8, 1}) -- pop-out
+end
