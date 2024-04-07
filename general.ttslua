@@ -1,0 +1,19 @@
+---------------------------------------------------------
+-- basic onLoad() and onSave()
+---------------------------------------------------------
+
+-- default values for variables
+local var1 = 1
+local var2 = false
+
+function onSave()
+  return JSON.encode({ var1 = var1, var2 = var2 })
+end
+
+function onLoad(savedData)
+  if savedData and savedData ~= "" then
+    local loadedData = JSON.decode(savedData)
+    var1 = loadedData.var1
+    var2 = loadedData.var2
+  end
+end
