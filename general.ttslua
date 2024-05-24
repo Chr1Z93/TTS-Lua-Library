@@ -17,3 +17,35 @@ function onLoad(savedData)
     var2 = loadedData.var2
   end
 end
+
+local tagPrefix = "Move_"
+function moveObjectsToMatchingTags()
+  -- generate list of positions (only first matching snap point will be used)
+  local tagToPosition = {}
+  for _, snap in ipairs(Global.getSnapPoints()) do
+    for _, snapTag in ipairs(snap.tags or {}) do
+      if doesStringStartWithPrefix(snapTag, tagPrefix) then
+        if not tagToPosition[snapTag] then
+          tagToPosition[snapTag] = Vector(snap.position)
+        end
+      end
+    end
+  end
+
+  -- move each object to previously collected positions (using the first matching tag)
+  local verticalOffset = 0
+  for _, obj in ipairs(getObjects()) do
+    for _, objTag in ipairs(obj.getTags()) do
+      if tagToPosition[objTag] then
+        obj.setPosition(tagToPosition[objTag] + verticalOffset * Vector(0, 0.2, 0))
+        verticalOffset = verticalOffset + 1
+        break
+      end
+    end
+  end
+end
+
+-- helper function to check if a string starts with another string
+function doesStringStartWithPrefix(str, start)
+  return str:sub(1, #start) == start
+end
