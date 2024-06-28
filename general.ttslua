@@ -18,6 +18,10 @@ function onLoad(savedData)
   end
 end
 
+---------------------------------------------------------
+-- move objects to snap points with same tag
+---------------------------------------------------------
+
 local tagPrefix = "Move_"
 function moveObjectsToMatchingTags()
   -- generate list of positions (only first matching snap point will be used)
@@ -48,4 +52,36 @@ end
 -- helper function to check if a string starts with another string
 function doesStringStartWithPrefix(str, start)
   return str:sub(1, #start) == start
+end
+
+---------------------------------------------------------
+-- clone an object from a container
+---------------------------------------------------------
+
+-- 'container' and 'index' are mandatory
+-- set 'index' to -1 to use a random object
+function cloneObjectFromContainer(container, index, position, rotation)
+  if not container then return end
+  if not index then return end
+
+  local objList = container.getData().ContainedObjects
+  if not objList then return end
+  if index == -1 then
+    math.randomseed(os.time())
+    index = math.random(#objList)
+  else
+    -- make sure the index isn't higher than the object count
+    index = math.max(index, #objList)
+  end
+
+  -- loop through the objects
+  for i, objData in ipairs(objList) do
+    if i == index then
+      spawnObjectData({
+        data = objData,
+        position = position,
+        rotation = rotation
+      })
+    end
+  end
 end

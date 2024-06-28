@@ -1,12 +1,12 @@
 do
   local SearchLib = {}
   local filterFunctions = {
-    isActionToken = function(x) return x.getDescription() == "Action Token" end,
     isCard = function(x) return x.type == "Card" end,
     isDeck = function(x) return x.type == "Deck" end,
     isCardOrDeck = function(x) return x.type == "Card" or x.type == "Deck" end,
     isClue = function(x) return x.memo == "clueDoom" and x.is_face_down == false end,
-    isTileOrToken = function(x) return x.type == "Tile" end
+    isTileOrToken = function(x) return x.type == "Tile" end,
+    isUniversalToken = function(x) return x.getMemo() == "universalActionAbility" end,
   }
 
   -- performs the actual search and returns a filtered list of object references
@@ -60,6 +60,7 @@ do
 
   -- searches below the specified position (downwards until y = 0)
   SearchLib.belowPosition = function(pos, filter)
+    size = { 0.1, 2, 0.1 }
     direction = { 0, -1, 0 }
     maxDistance = pos.y
     return returnSearchResult(pos, _, size, filter, direction, maxDistance)
