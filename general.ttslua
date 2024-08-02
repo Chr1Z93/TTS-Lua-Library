@@ -85,3 +85,15 @@ function cloneObjectFromContainer(container, index, position, rotation)
     end
   end
 end
+
+-- edits the label of a button
+---@param oldLabel string Old label of the button
+---@param newLabel string New label of the button
+function editButtonLabel(oldLabel, newLabel)
+  local buttons = self.getButtons()
+  for i = 1, #buttons do
+    if buttons[i].label == oldLabel then
+      self.editButton({ index = buttons[i].index, label = newLabel })
+    end
+  end
+end
