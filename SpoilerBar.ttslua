@@ -1,0 +1,57 @@
+-- spoiler data definition
+local spoilerData  = {
+  -- page 1
+  {
+    -- first spoiler
+    {
+      position = { 0.627, -1.26 }, width = 119, height = 24
+    },
+    -- second spoiler
+    {
+      position = { 0.627, -0.535 }, width = 119, height = 76
+    }
+  },
+  -- further pages (not necessary yet)
+}
+
+local hiddenColor  = "#888888"
+local visibleColor = "#88888825"
+local zPos         = -22
+
+function onLoad()
+  buildXML()
+end
+
+function buildXML()
+  local page = 1
+
+  local bookXml = {}
+
+  for i, spoilerBarData in ipairs(spoilerData[page]) do
+    local spoilerBarXML = {
+      tag = "Panel",
+      attributes = {
+        onMouseEnter  = "onMouseEnter",
+        onMouseExit   = "onMouseExit",
+        id            = "spoilerBar" .. i,
+        width         = spoilerBarData.width,
+        height        = spoilerBarData.height,
+        color         = hiddenColor,
+        position      = spoilerBarData.position[1] * 100 .. " " .. spoilerBarData.position[2] * 100 .. " " .. zPos
+      }
+    }
+    table.insert(bookXml, spoilerBarXML)
+  end
+
+  self.UI.setXmlTable(bookXml)
+end
+
+-- make the respective spoiler bar transparent
+function onMouseEnter(player, _, elementId)
+  self.UI.setAttribute(elementId, "color", visibleColor)
+end
+
+-- make the respective spoiler bar opact again
+function onMouseExit(player, _, elementId)
+  self.UI.setAttribute(elementId, "color", hiddenColor)
+end
