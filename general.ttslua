@@ -28,7 +28,7 @@ function moveObjectsToMatchingTags()
   local tagToPosition = {}
   for _, snap in ipairs(Global.getSnapPoints()) do
     for _, snapTag in ipairs(snap.tags or {}) do
-      if doesStringStartWithPrefix(snapTag, tagPrefix) then
+      if string.startsWith(snapTag, tagPrefix) then
         if not tagToPosition[snapTag] then
           tagToPosition[snapTag] = Vector(snap.position)
         end
@@ -47,11 +47,6 @@ function moveObjectsToMatchingTags()
       end
     end
   end
-end
-
--- helper function to check if a string starts with another string
-function doesStringStartWithPrefix(str, start)
-  return str:sub(1, #start) == start
 end
 
 ---------------------------------------------------------

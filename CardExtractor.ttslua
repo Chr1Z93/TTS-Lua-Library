@@ -1,5 +1,5 @@
 -- ping a container to remove all objects from it except cards
-function onPlayerPing(player, position, object)
+function onPlayerPing(_, _, object)
   if not object then return end
 
   local function extractCards(objDataList)
